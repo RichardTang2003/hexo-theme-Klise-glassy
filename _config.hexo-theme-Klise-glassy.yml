@@ -1,0 +1,76 @@
+# favicon 网站图标
+favicon: /img/favicon.ico
+
+# 背景图片
+background_imgurl_light: 'https://api.illlights.com/v1/img?err_only=true&minsize=1080&minbrightness=0.5' # 亮色模式下的背景图片
+background_imgurl_dark: 'https://api.illlights.com/v1/img?err_only=true&minsize=1080&maxbrightness=0.5' # 暗色模式下的背景图片
+
+# rss 地址
+rss: /atom.xml
+
+# main menu navigation 你还可以添加自己的页面
+menu:
+  Home: / || 主页 
+  Tags: /tags/ || 标签 # 需要手动创建
+  categories: /categories/ || 类别 # 需要手动创建
+  Moments: /moments/ || 动态 # 需要手动创建
+  Archives: /archives/ || 文章
+  Friends: /friends/ || 友链 # 需要手动创建
+  About: /about/ || 关于 # 请修改
+# pagename: /dir/ || 在博客菜单栏显示的名称
+
+bio:
+  这里是显示在主页的简介
+
+page_404:
+  enable: true
+  subtitle: 'Oops! Page not found.'
+
+comments:
+  enable: true
+  type: waline # waline | valine 还没写好
+  button: true
+
+#Waline https://waline.js.org
+waline:
+  serverURL: https://comments-blog.illlights.com/ # your waline serverURL
+  avatarCDN: https://sdn.geekzu.org/avatar/
+  avatar: monsterid # gravatar style https://zh-tw.gravatar.com/site/implement/images/#default-image
+  placeholder: '封闭的文字无法成长。'
+
+valine:
+  appid: # leancloud application app id
+  appkey: # leancloud application app key
+  notify: false # mail notifier , https://github.com/xCss/Valine/wiki
+  verify: false # Verification code
+  placeholder: Just go go # comment box placeholder
+  avatar: mm # gravatar style
+  guest_info: nick,mail,link # custom comment header
+  pageSize: 10 # pagination size
+  recordIP: false # record IP
+  serverURLs: # your serverURLs
+  emojiCDN: # emoji CDN
+  enableQQ: true
+
+# stylesheets loaded in the <head>
+stylesheets:
+  - /css/main.css
+
+# scripts loaded in the end of the body
+scripts:
+  - /js/main.js
+
+# friends page configuration
+friends:
+  title: 友链
+  subtitle: 一些有意思的链接
+
+# moments page configuration
+moments:
+  mastodon:
+    api: https://<实例地址>/api/v1/accounts/<用户ID>/statuses # Mastodon API endpoint，请替换为你的实例地址、用户ID
+    initialLimit: 5
+    loadMoreLimit: 10
+  bangumi:
+    api: https://api.bgm.tv/v0/users/<用户ID>/collections?type=2&limit=5&offset= # Bangumi API endpoint，请替换为你的用户ID
+    loadMoreLimit: 3

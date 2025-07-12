@@ -1,0 +1,25 @@
+<head>
+    <style>
+        /* 在这里写 CSS 样式 */
+        .toc {
+            padding: 20px;
+            border-radius: 8px;
+            list-style: none;          
+        }
+        .toc.link{
+            list-style:none;
+        }
+        .toc.child{
+            list-style:none;
+        }
+        
+
+
+    </style>
+</head>
+<% if (page.toc != false) { %>
+    <div id="toc">
+        <strong class="sidebar-title">目录</strong>
+        <%- toc(page.content, {list_number : false}) %>
+    </div>
+<% } %>

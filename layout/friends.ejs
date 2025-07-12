@@ -1,0 +1,59 @@
+<div class="friends-wrapper">
+    <header class="header">
+        <h1 class="header-title center"><%= theme.friends.title %></h1>
+        <p class="friends-subtitle"><%= theme.friends.subtitle %></p>
+    </header>
+    <div class="friends-container">
+        <%
+        // 获取页面渲染后的完整HTML内容
+        const content = page.content;
+        
+        // 步骤1：使用正则表达式精确匹配并提取 <ul>...</ul> 区块内的所有内容
+        const ulMatch = content.match(/<ul[^>]*>([\s\S]*?)<\/ul>/);
+
+        // 检查是否成功匹配到 <ul> 区块
+        if (ulMatch && ulMatch[1]) {
+            // ulMatch[1] 包含 <ul> 和 </ul> 之间的所有HTML内容
+            const ulContent = ulMatch[1];
+            
+            // 步骤2：在提取出的内容中，按 </li> 分割成项目数组
+            // 这个方法比直接匹配 <li> 更健壮
+            const potentialItems = ulContent.split('</li>');
+            
+            // 步骤3：清理和验证每个项目
+            const validItems = potentialItems.map(item => {
+                // - 使用 replace(/<[^>]+>/g, '') 移除所有HTML标签 (例如 <li>)
+                // - 使用 trim() 移除首尾的所有空白字符和换行符
+                return item.replace(/<[^>]+>/g, '').trim();
+            }).filter(item => item.length > 0); // 步骤4：过滤掉所有内容为空的项目
+
+            // 步骤5：遍历有效项目数组，生成卡片
+            for (let i = 0; i < validItems.length; i += 4) {
+                // 确保我们有完整的一组数据 (名称, 链接, 头像, 简介)
+                if (validItems[i+3] !== undefined) {
+                    const friend = {
+                        name:   validItems[i],
+                        link:   validItems[i+1],
+                        avatar: validItems[i+2],
+                        descr:  validItems[i+3]
+                    };
+        %>
+                    <!-- 开始渲染单个朋友卡片 -->
+                    <a href="<%- url_for(friend.link) %>" target="_blank" rel="noopener" class="friends-card glass-wrapper card-item hover-effect">
+                        <img class="friends-avatar" src="<%- url_for(friend.avatar) %>" alt="<%= friend.name %>" loading="lazy" onerror="this.src='https://placehold.co/100x100/ecf0f1/7f8c8d?text=Err'; this.onerror=null;">
+                        <div class="friends-info">
+                            <h4 class="friends-name"><%= friend.name %></h4>
+                            <p class="friends-descr"><%= friend.descr %></p>
+                        </div>
+                    </a>
+        <%
+                }
+            }
+        } else {
+        %>
+            <p style="text-align: center; width: 100%;">未能找到友链列表，请检查 Markdown 文件中是否包含 &lt;ul&gt;...&lt;/ul&gt; 列表。</p>
+        <%
+        }
+        %>
+    </div>
+</div>

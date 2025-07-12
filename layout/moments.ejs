@@ -1,0 +1,36 @@
+<%- css('/css/moments.css') %>
+
+<div class="wrapper">
+    <header class="header">
+        <h1 class="header-title center"><%=page.title || '动态时光'%></h1>
+        <% if (page.content && page.content.trim()) { %>
+        <div class="moments-description">
+            <%- page.content %>
+        </div>
+        <% } %>
+    </header>
+
+    <main class="page-content" aria-label="Content">
+        <div id="moments-page">
+            <div id="mastodon-timeline">
+                <!-- 初始加载提示 -->
+                <div class="timeline-loading">
+                    <div class="spinner"></div>
+                    <span>正在加载动态...</span>
+                </div>
+            </div>
+
+            <!-- 加载更多按钮 -->
+            <button id="load-more-btn">加载更多</button>
+
+            <!-- 全部加载完成的提示 -->
+            <div id="no-more-posts-placeholder"></div>
+        </div>
+    </main>
+</div>
+
+<script>
+// 将 Hexo 主题配置传递给 JavaScript
+window.momentsConfig = <%- JSON.stringify(theme.moments || {}) %>;
+</script>
+<%- js('/js/moments.js') %>

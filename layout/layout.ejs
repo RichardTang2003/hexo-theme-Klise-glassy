@@ -1,0 +1,46 @@
+
+<!DOCTYPE html>
+<html lang="<%=config.language%>">
+<head>
+  <script>
+    (function() {
+      try {
+        // 1. 优先从 localStorage 获取用户保存的主题
+        var savedTheme = localStorage.getItem('theme');
+        
+        // 2. 如果没有保存的主题，则检查系统偏好
+        var theme = savedTheme || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        
+        // 3. 将主题属性应用到 <html> 元素上
+        //    在 <head> 中执行时，<body> 可能还不存在，所以操作 <html> 更安全
+        if (theme === 'dark') {
+          document.documentElement.setAttribute('data-theme', 'dark');
+        }
+      } catch (e) {
+        // 如果发生错误，则不执行任何操作，让主脚本来处理
+      }
+    })();
+  </script>
+  
+  <!-- 提示浏览器颜色的 meta 标签 -->
+  <meta name="color-scheme" content="light dark">
+  <!-- Mastodon 验证 -->
+  <meta name="fediverse:creator" content="@illlights@anisaga.life">
+  <%-partial('partials/head')%>
+</head>
+<body class="notransition">
+  <!-- <script defer>
+    // 延迟移除 notransition 类，确保初始主题设置完成
+    setTimeout(() => document.body.classList.remove("notransition"), 75);
+  </script> -->
+  <%-partial('partials/header')%>
+  <%- body %>
+  <%-partial('partials/foot')%>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // 当 DOM 内容加载完成后，为 body 添加 'loaded' 类
+      document.body.classList.add('loaded');
+    });
+  </script>
+</body>
+</html>

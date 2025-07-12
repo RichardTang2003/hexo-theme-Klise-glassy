@@ -1,0 +1,107 @@
+
+<%
+const categoriesList = list_categories({ show_count: false });
+const tagsList = list_tags({ show_count: false });
+const archivesList = list_archives({ show_count: false });
+%>
+
+  <div class="wrapper">
+    <main class="page-content">
+    <header class="header">
+      <h1 class="header-title center">Archives</h1>
+    </header>
+    <div class="archive-container glass-wrapper main-content">    
+      <%
+      // 获取文章列表
+      let posts = [];
+      if (page.posts && typeof page.posts.toArray === 'function') {
+        posts = page.posts.toArray();
+      } else if (site.posts && typeof site.posts.toArray === 'function') {
+        posts = site.posts.toArray();
+      } else if (Array.isArray(page.posts)) {
+        posts = page.posts;
+      }
+      
+      // 按年月分组
+      const postsByMonth = {};
+      posts.forEach(post => {
+        const year = post.date.year();
+        const month = post.date.month() + 1; // 月份从0开始，所以+1
+        const key = `${year}-${month.toString().padStart(2, '0')}`;
+        
+        if (!postsByMonth[key]) {
+          postsByMonth[key] = {
+            year: year,
+            month: month,
+            posts: []
+          };
+        }
+        postsByMonth[key].posts.push(post);
+      });
+      
+      // 按日期降序排序
+      const sortedMonths = Object.values(postsByMonth).sort((a, b) => {
+        if (a.year !== b.year) return b.year - a.year;
+        return b.month - a.month;
+      });
+      %>
+      
+      <div class="monthly-archives">
+        <% sortedMonths.forEach(monthData => { %>
+          <%
+          const monthName = new Date(monthData.year, monthData.month - 1)
+            .toLocaleString('zh-CN', { month: 'long' });
+          %>
+          <div class="archive-month-group">
+            <h2 class="archive-month-title">
+              <%= monthData.year %>年 <%= monthName %>
+              <span class="post-count">(<%= monthData.posts.length %>篇)</span>
+            </h2>
+            
+            <ul class="archive-post-list">
+              <% monthData.posts.forEach(post => { %>
+                <li class="archive-post-item glass-wrapper archive-item">
+                  <time class="post-date" datetime="<%= post.date.toISOString() %>">
+                    <%= post.date.format('MM-DD') %>
+                  </time>
+                  <a href="<%= url_for(post.path) %>" class="post-title">
+                    <%= post.title %>
+                  </a>
+                  
+                  <% if (post.tags && post.tags.length > 0) { %>
+                    <div class="post-tags">
+                      <% post.tags.each(tag => { %>
+                        <a href="<%= url_for(tag.path) %>" class="tag">#<%= tag.name %></a>
+                      <% }); %>
+                    </div>
+                  <% } %>
+                </li>
+              <% }); %>
+            </ul>
+          </div>
+        <% }); %>
+      </div>
+    </div>
+      <nav class="pagination">
+        <%- paginator({
+          prev_text: '上一页',  // 上一页按钮文字
+          next_text: '下一页'   // 下一页按钮文字
+        }) %>
+      </nav>
+    </main>
+  </div>
+  
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const yearToggles = document.querySelectorAll('.year-toggle');
+      
+      yearToggles.forEach(toggle => {
+        toggle.addEventListener('click', function() {
+          const year = this.dataset.year;
+          const content = document.querySelector(`.year-content[data-year="${year}"]`);
+          content.classList.toggle('collapsed');
+          this.textContent = content.classList.contains('collapsed') ? '展开' : '折叠';
+        });
+      });
+    });
+    </script>

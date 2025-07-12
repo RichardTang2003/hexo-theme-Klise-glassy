@@ -1,0 +1,25 @@
+  <div class="wrapper">
+    <div class="author">
+        <div class="author-avatar-wrapper">
+          <img
+            class="author-avatar"
+            src=https://ooo.0x0.ooo/2023/04/04/28rZt.jpg
+            alt="avatar"
+            loading="lazy"
+          />
+      </div>
+      <h2 class="author-name"><%=config.author%></h2>
+      <p class="author-bio"><%=theme.bio%></p>
+    </div>
+    
+    <main aria-label="Content" class="glass-wrapper main-content">
+      <%-partial('partials/recent-posts')%>
+      <nav class="pagination">
+        <%- paginator({
+          prev_text: '上一页',  // 上一页按钮文字
+          next_text: '下一页'   // 下一页按钮文字
+        }) %>
+      </nav>
+      
+    </main>
+  </div>

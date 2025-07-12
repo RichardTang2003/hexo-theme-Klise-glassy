@@ -1,0 +1,20 @@
+
+<div class="wrapper">
+  <main class="page-content">
+  <header class="header">
+    <h1 class="header-title center">类别：<%=page.category%></h1>
+  </header>
+  <div class="category-div glass-wrapper main-content">
+    <% var last_year = ''; %>
+    <% page.posts.each(function (article) { %>
+      <article class="post-item list-hover">
+        <h3 class="post-item-title">
+          <a href="<%=url_for(article.path)%>">
+            <%=article.title%>
+          </a>
+        </h3>
+      </article>
+    <% }) %>
+  </div>
+  </main>
+</div>

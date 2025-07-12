@@ -1,0 +1,40 @@
+<button id="toTopBtn"><i class="fa-solid fa-hand-point-up " ></i></button>
+<button id="toggleButton"><i class="fa-solid fa-chart-bar " ></i></button>
+<div id="overlay" class="overlay glass-wrapper overlay-bg">
+  <div class="content">
+    <%- toc(page.content, {list_number : false}) %>
+    <button id="closeButton"><i class="fa-solid fa-circle-xmark"></i></button>
+  </div>
+</div>
+<div class="wrapper post">
+  <head>
+    <!-- 引入 Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  </head>
+
+
+
+  <main class="page-content" aria-label="Content">
+    <div class="glass-wrapper main-content">
+      <header class="header">
+        
+          <div class="tags">
+            <% (page.tags || []).forEach(function(item) { %><a href="<%= url_for(item.path) %>" class="tag"># <%= item.name %></a><% }); %>
+          </div>
+        
+          <h1 class="header-title" itemprop="headline"><%=page.title%></h1>
+          <div class="post-meta">
+            最后更新: <time><%- date(page.updated, 'MMM DD, YYYY') %></time>
+            作者: <span itemprop="author">
+              <span itemprop="name"><%=config.author%></span>
+            </span>
+            字数: <span class="post-count"><%= wordcount(page.content) %></span>
+            预计阅读时间: <span class="post-count"><%= min2read(page.content) %>min</span> 
+          </div>       
+      </header>
+          <div class="page-content"><%-page.content%></div>          
+          <%-partial('partials/pagination')%>
+          <%- partial('partials/_comments/index') %>
+    </div>
+   </main>
+</div>

@@ -1,0 +1,16 @@
+<% if (theme.comments.enable && theme.comments.type === 'waline' && page.comment !== false && theme.waline.serverURL){ %>
+    <script src='//cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js'></script>
+    <div id="waline" class="glass-wrapper waline-container"></div>
+    <script>
+        window.onload = function () {
+            new Waline({
+                el: '#waline',
+                path: location.pathname,
+                avatarCDN: '<%=theme.waline.avatarCDN || "https://sdn.geekzu.org/avatar/"%>',
+                serverURL: '<%=theme.waline.serverURL %>',
+                avatar: '<%=theme.waline.avatar || "monsterid"%>',
+                placeholder: "<%= theme.waline.placeholder || 'Let me know what you think！' %>"
+            });
+        };
+    </script>
+<% } %>

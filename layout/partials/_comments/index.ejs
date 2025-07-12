@@ -1,0 +1,5 @@
+<div class="dis">
+    <% if (theme.comments.enable && theme.comments.type && page.comment !== false) { %>
+        <%- partial('partials/_comments/' + theme.comments.type) %>
+    <% } %>
+</div>
