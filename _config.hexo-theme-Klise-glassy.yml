@@ -2,8 +2,8 @@
 favicon: /img/favicon.ico
 
 # 背景图片
-background_imgurl_light: 'https://api.illlights.com/v1/img?err_only=true&minsize=1080&minbrightness=0.5' # 亮色模式下的背景图片
-background_imgurl_dark: 'https://api.illlights.com/v1/img?err_only=true&minsize=1080&maxbrightness=0.5' # 暗色模式下的背景图片
+background_imgurl_light: https://api.illlights.com/v1/img?err_only=true&minsize=720&minbrightness=0.5 # 亮色模式下的背景图片
+background_imgurl_dark: https://api.illlights.com/v1/img?err_only=true&minsize=720&maxbrightness=0.5 # 暗色模式下的背景图片
 
 # rss 地址
 rss: /atom.xml
@@ -22,6 +22,9 @@ menu:
 bio:
   这里是显示在主页的简介
 
+footer:
+  message: '始于2025.' # 页脚信息
+
 page_404:
   enable: true
   subtitle: 'Oops! Page not found.'
@@ -33,7 +36,7 @@ comments:
 
 #Waline https://waline.js.org
 waline:
-  serverURL: https://comments-blog.illlights.com/ # your waline serverURL
+  serverURL: # your waline serverURL
   avatarCDN: https://sdn.geekzu.org/avatar/
   avatar: monsterid # gravatar style https://zh-tw.gravatar.com/site/implement/images/#default-image
   placeholder: '封闭的文字无法成长。'

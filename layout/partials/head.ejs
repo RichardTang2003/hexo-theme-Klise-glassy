@@ -14,8 +14,8 @@ pageTitle += ' [ ' + config.title + ' ]';
 <title><%=pageTitle%></title>
 <style>
   :root {
-    --background-img-light: url(<%= theme.background_imgurl_light %>);
-    --background-img-dark: url(<%= theme.background_imgurl_dark %>);
+    --background-img-light: url(<%- theme.background_imgurl_light %>);
+    --background-img-dark: url(<%- theme.background_imgurl_dark %>);
   }
 </style>
 <% if (theme.favicon){ %>
