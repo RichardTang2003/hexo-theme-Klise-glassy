@@ -14,11 +14,13 @@ document.addEventListener('DOMContentLoaded', () => {
     // 从全局配置中获取配置，如果没有则使用默认配置
     const externalConfig = window.momentsConfig || {};
     const config = {
+        mastodonEnable: externalConfig.mastodon?.enable !== undefined ? externalConfig.mastodon.enable : false,
         mastodonApiUrl: externalConfig.mastodon?.api || defaultConfig.mastodonApiUrl,
         initialLimit: externalConfig.mastodon?.initialLimit || defaultConfig.initialLimit,
         loadMoreLimit: externalConfig.mastodon?.loadMoreLimit || defaultConfig.loadMoreLimit,
         excludeReplies: externalConfig.mastodon?.excludeReplies !== undefined ? externalConfig.mastodon.excludeReplies : defaultConfig.excludeReplies,
         excludeReblogs: externalConfig.mastodon?.excludeReblogs !== undefined ? externalConfig.mastodon.excludeReblogs : defaultConfig.excludeReblogs,
+        bangumiEnable: externalConfig.bangumi?.enable !== undefined ? externalConfig.bangumi.enable : false,
         bangumiApiUrl: externalConfig.bangumi?.api || defaultConfig.bangumiApiUrl,
         bangumiLimit: externalConfig.bangumi?.loadMoreLimit || defaultConfig.bangumiLimit,
     };
@@ -240,12 +242,27 @@ document.addEventListener('DOMContentLoaded', () => {
             timelineContainer.innerHTML = '<div class="timeline-loading">加载中...</div>';
         }
         try {
-            // 并行请求 Mastodon 和 Bangumi
-            const requests = [fetch(mastodonUrl)];
-            if (!state.bangumiFinished) {
-                requests.push(fetch(config.bangumiApiUrl + state.bangumiOffset));
+            let mastodonRes, bangumiRes;
+            if (config.mastodonEnable && config.bangumiEnable) {
+                // 并行请求 Mastodon 和 Bangumi
+                const requests = [fetch(mastodonUrl)];
+                if (!state.bangumiFinished) {
+                    requests.push(fetch(config.bangumiApiUrl + state.bangumiOffset));
+                }
+                [mastodonRes, bangumiRes] = await Promise.all(requests);
             }
-            const [mastodonRes, bangumiRes] = await Promise.all(requests);
+            else if (config.mastodonEnable && !config.bangumiEnable) {
+                // 只请求 Mastodon
+                mastodonRes = await fetch(mastodonUrl);
+            }
+            else if (!config.mastodonEnable && config.bangumiEnable) {
+                // 只请求 Bangumi
+                bangumiRes = await fetch(config.bangumiApiUrl + state.bangumiOffset);
+            } else {
+                // 如果都不启用，直接返回
+                console.warn('Mastodon 和 Bangumi 都未启用，无法加载动态。');
+                return;
+            }
             // Mastodon
             let mastodonStatuses = [];
             if (mastodonRes && mastodonRes.ok) {

@@ -1,10 +1,6 @@
 # favicon 网站图标
 favicon: /img/favicon.ico
 
-# 背景图片
-background_imgurl_light: https://api.illlights.com/v1/img?err_only=true&minsize=720&minbrightness=0.5 # 亮色模式下的背景图片
-background_imgurl_dark: https://api.illlights.com/v1/img?err_only=true&minsize=720&maxbrightness=0.5 # 暗色模式下的背景图片
-
 # rss 地址
 rss: /atom.xml
 
@@ -71,9 +67,11 @@ friends:
 # moments page configuration
 moments:
   mastodon:
-    api: https://<实例地址>/api/v1/accounts/<用户ID>/statuses # Mastodon API endpoint，请替换为你的实例地址、用户ID
+    enable: false # 是否启用 Mastodon 动态
+    api: https://<实例地址>/api/v1/accounts/<用户ID>/statuses # Mastodon API endpoint，请替换为你的实例地址、用户ID，ID 查询方法：https://docs.joinmastodon.org/entities/account/#id
     initialLimit: 5
     loadMoreLimit: 10
   bangumi:
-    api: https://api.bgm.tv/v0/users/<用户ID>/collections?type=2&limit=5&offset= # Bangumi API endpoint，请替换为你的用户ID
+    enable: false # 是否启用 Bangumi 动态
+    api: https://api.bgm.tv/v0/users/<用户名>/collections?type=2&limit=5&offset= # Bangumi API endpoint，请替换为你的用户名，就是 @xxx 的 xxx
     loadMoreLimit: 3

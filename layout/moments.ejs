@@ -29,8 +29,10 @@
     </main>
 </div>
 
+<% if (theme.moments && (theme.moments.mastodon.enable === true || theme.moments.bangumi.enable === true)) { %>
 <script>
 // 将 Hexo 主题配置传递给 JavaScript
 window.momentsConfig = <%- JSON.stringify(theme.moments || {}) %>;
 </script>
 <%- js('/js/moments.js') %>
+<% } %>

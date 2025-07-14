@@ -12,12 +12,6 @@ pageTitle += ' [ ' + config.title + ' ]';
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title><%=pageTitle%></title>
-<style>
-  :root {
-    --background-img-light: url(<%- theme.background_imgurl_light %>);
-    --background-img-dark: url(<%- theme.background_imgurl_dark %>);
-  }
-</style>
 <% if (theme.favicon){ %>
   <link rel="icon" href="<%- url_for(theme.favicon) %>">
 <% } %>

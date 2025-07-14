@@ -55,12 +55,14 @@ git clone https://github.com/RichardTang2003/hexo-theme-Klise-glassy.git
 在博客配置文件`_config.yml`中启用主题。主题设置为`hexo-theme-Klise-glassy`
 
 ### 最后，
-请关闭 CloudFlare [Rocket Loader](https://developers.cloudflare.com/speed/optimization/content/rocket-loader/) 功能，它会延迟加载 JavaScript 来提升“首次渲染速度”，这会让暗色主题下切换页面时出现亮色主题闪烁，直到 JS 被加载再恢复到暗色主题。这东西让我以为是我写的 JS 有问题白忙活了两天。
+如果页面渲染有问题请尝试关闭 CloudFlare [Rocket Loader](https://developers.cloudflare.com/speed/optimization/content/rocket-loader/) 功能，它会延迟加载 JavaScript 来提升“首次渲染速度”，这会让暗色主题下切换页面时出现亮色主题闪烁，直到 JS 被加载再恢复到暗色主题。这东西让我以为是我写的 JS 有问题白忙活了两天。
 
 ## 个性化部分
 
 ### 自定义背景
-在主题配置文件中修改。
+尝试过在配置文件中记录背景图片地址，但是如果使用随机图会导致每次加载页面的时候都刷新一次，图片加载慢的话体验很差。
+
+所以现在还是把图片地址放在 `main.css` 的开头，想要改图片只需要改那个长长的链接就行。
 
 ### 当网页失去焦点时标签页标题的显示文字
 打开主题文件夹下的`layout\layout.ejs` 修改document.title即可。我默认注释掉了。
@@ -147,4 +149,8 @@ layout: moments
 
 你可以点击某条动态跳转到对应网站发表评论。
 ```
+
+这部分是用静态 JS 实现的，每次访问者访问这个网页时会向公共 API 发送请求，实时获取动态内容。
+
+在配置文件里填写自己的用户名和 Mastodon 实例地址就行，只会显示对公众开放的内容。
 
