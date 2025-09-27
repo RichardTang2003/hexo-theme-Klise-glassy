@@ -650,10 +650,39 @@ mark,
   font-weight: normal;
   letter-spacing: 0.1px;
 }
+.post-item .post-item-heading {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+.post-item .post-item-heading .post-item-title {
+  flex: 0 1 auto;
+}
 .post-item .post-item-title a {
   color: #434648;
 }
 .post-item .post-item-title a:hover, .post-item .post-item-title afocus {
+  color: #0d122b;
+}
+.post-item .post-item-categories {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 13px;
+}
+.post-item .post-item-categories li {
+  margin: 0;
+}
+.post-item .post-item-categories a {
+  color: #6b7886;
+  text-decoration: none;
+}
+.post-item .post-item-categories a:hover,
+.post-item .post-item-categories a:focus {
   color: #0d122b;
 }
 
@@ -1465,6 +1494,13 @@ html[data-theme=dark] .post-item .post-item-title a {
 html[data-theme=dark] .post-item .post-item-title a:hover, html[data-theme=dark] .post-item .post-item-title afocus {
   color: #eaeaea;
 }
+html[data-theme=dark] .post-item .post-item-categories a {
+  color: #9aa5ba;
+}
+html[data-theme=dark] .post-item .post-item-categories a:hover,
+html[data-theme=dark] .post-item .post-item-categories a:focus {
+  color: #eaeaea;
+}
 html[data-theme=dark] .post-nav {
   border-color: #1b1d25;
 }
@@ -2037,6 +2073,7 @@ html[data-theme=dark] .glass-wrapper:hover {
 
 /* 友链卡片本身 - 默认（日间）毛玻璃效果 */
 .friends-card {
+    --friend-order: 0;
     display: flex;
     align-items: center;
     padding: 1rem;
@@ -2045,6 +2082,10 @@ html[data-theme=dark] .glass-wrapper:hover {
     color: inherit;
     overflow: hidden;
     transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+    opacity: 0;
+    transform: translateY(24px);
+    animation: glassSlideIn 0.8s ease forwards;
+    animation-delay: calc(var(--friend-order, 0) * 0.08s);
 }
 
 /* 鼠标悬停在卡片上时的效果 */
@@ -2318,20 +2359,9 @@ html[data-theme=dark] .friends-card .friends-avatar {
   transform: translateY(20px);
   opacity: 0;
   animation: slideInUp 0.6s ease forwards;
+  animation-delay: calc(var(--post-index, 0) * 0.08s);
   transition: all 0.3s ease;
 }
-
-/* 为每个文章项添加递延动画效果 */
-.post-item:nth-child(1) { animation-delay: 0.1s; }
-.post-item:nth-child(2) { animation-delay: 0.2s; }
-.post-item:nth-child(3) { animation-delay: 0.3s; }
-.post-item:nth-child(4) { animation-delay: 0.4s; }
-.post-item:nth-child(5) { animation-delay: 0.5s; }
-.post-item:nth-child(6) { animation-delay: 0.6s; }
-.post-item:nth-child(7) { animation-delay: 0.7s; }
-.post-item:nth-child(8) { animation-delay: 0.8s; }
-.post-item:nth-child(9) { animation-delay: 0.9s; }
-.post-item:nth-child(10) { animation-delay: 1.0s; }
 
 /* 文章项悬停效果 */
 .post-item:hover {
@@ -2557,8 +2587,8 @@ html {
   }
   
   /* 减少移动设备上的动画延迟 */
-  .post-item:nth-child(n) { 
-    animation-delay: 0.1s; 
+  .post-item {
+    animation-delay: calc(var(--post-index, 0) * 0.05s);
   }
 }
 
@@ -2571,7 +2601,8 @@ html {
   .post,
   .archive-container,
   .categories-grid,
-  .friends-container {
+  .friends-container,
+  .friends-card {
     animation: none;
     opacity: 1;
     transform: none;

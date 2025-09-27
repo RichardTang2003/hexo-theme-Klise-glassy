@@ -37,9 +37,10 @@
                         avatar: validItems[i+2],
                         descr:  validItems[i+3]
                     };
+                    const cardIndex = (i / 4) + 1;
         %>
                     <!-- 开始渲染单个朋友卡片 -->
-                    <a href="<%- url_for(friend.link) %>" target="_blank" rel="noopener" class="friends-card glass-wrapper card-item hover-effect">
+                    <a href="<%- url_for(friend.link) %>" target="_blank" rel="noopener" class="friends-card glass-wrapper card-item hover-effect" style="--friend-order: <%= cardIndex %>;">
                         <img class="friends-avatar" src="<%- url_for(friend.avatar) %>" alt="<%= friend.name %>" loading="lazy" onerror="this.src='https://placehold.co/100x100/ecf0f1/7f8c8d?text=Err'; this.onerror=null;">
                         <div class="friends-info">
                             <h4 class="friends-name"><%= friend.name %></h4>

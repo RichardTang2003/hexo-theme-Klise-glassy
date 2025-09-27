@@ -1,12 +1,25 @@
 
 <% if (page.posts.length > 0) { %>
     <h3 class="posts-item-note" aria-label="Recent Posts">Recent Posts</h3>
-    <% page.posts.sort('date', -1).limit(10).each(post => { %>
-      <article class="post-item list-hover">
+    <% let postIndex = 0; %>
+    <% page.posts.sort('date', -1).limit(10).each(post => {
+      const order = ++postIndex;
+      const categories = post.categories && post.categories.length ? post.categories.toArray() : [];
+    %>
+      <article class="post-item list-hover" style="--post-index: <%= order %>;">
         <span class="post-item-date" datetime="<%=post.date.toJSON()%>"><%- date(post.date, 'MMM DD, YYYY') %></span>
-        <h4 class="post-item-title">
-          <a href="<%=url_for(post.path)%>"><%=post.title%></a>
-        </h4>
+        <div class="post-item-heading">
+          <h4 class="post-item-title">
+            <a href="<%=url_for(post.path)%>"><%=post.title%></a>
+          </h4>
+          <% if (categories.length) { %>
+            <ul class="post-item-categories">
+              <% categories.forEach(category => { %>
+                <li><a href="<%= url_for(category.path) %>"><%= category.name %></a></li>
+              <% }); %>
+            </ul>
+          <% } %>
+        </div>
       </article>
     <% }); %>
 <% } %>
