@@ -25,6 +25,11 @@ body::before {
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
+  background-attachment: fixed;
+  /* 移动端修复 */
+  will-change: transform;
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
 }
 
 html[data-theme=dark] body::before {
@@ -35,6 +40,54 @@ html[data-theme=dark] body::before {
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
+  background-attachment: fixed;
+}
+
+/* 移动端背景固定优化 */
+@media screen and (max-width: 768px) {
+  /* iOS Safari 对 position: fixed 支持较差，需要特殊处理 */
+  html {
+    /* 移除可能导致 fixed 失效的样式 */
+    overflow-x: hidden;
+    overflow-y: auto;
+    height: 100%;
+    /* 防止滚动时背景跟随 */
+    position: static;
+  }
+  
+  body {
+    /* 不设置 position，让 body::before 的 fixed 生效 */
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: static !important;
+  }
+  
+  body::before {
+    /* 确保背景固定在视口 */
+    position: fixed !important;
+    /* 强制硬件加速 */
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-perspective: 1000;
+    perspective: 1000;
+    /* 确保在最底层 */
+    z-index: -1;
+    /* iOS Safari 特殊修复 */
+    width: 100vw;
+    height: 100vh;
+    /* 防止背景被拉伸或移动 */
+    margin: 0;
+    padding: 0;
+    /* 确保背景附着方式正确 */
+    background-attachment: fixed;
+  }
+  
+  /* 防止子元素创建新的层叠上下文影响背景 */
+  .wrapper,
+  .glass-wrapper {
+    position: relative;
+    z-index: 1;
+  }
 }
 
 /*----以上 在此处修改背景图片，可为明暗模式设置不同的背景图片----*/
@@ -94,7 +147,7 @@ figure {
 html, body {
   min-height: 100vh;
   overflow-x: hidden;
-  position: relative;
+  /* 不使用 position: relative，避免影响 fixed 背景 */
   
   /*background: #fff;*/
   font: 500 18px/1.85 lato, Helvetica Neue For Number, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, PingFang SC, Hiragino Sans GB, "LXGW Neo ZhiSong","Microsoft JhengHei", "MicrMicrosoft YaHei", Helvetica Neue, Helvetica, Arial, sans-serif;
@@ -2422,8 +2475,9 @@ html[data-theme=dark] .friends-card .friends-avatar {
 /*----------------------------------触摸设备性能优化----------------------------------*/
 /* 优化触摸设备的滚动性能 */
 @media (hover: none) and (pointer: coarse) {
-  * {
-    /* 使用硬件加速 */
+  /* 不对所有元素使用 transform，避免影响 fixed 定位 */
+  /* 仅对需要优化的容器使用硬件加速 */
+  .wrapper, .glass-wrapper, .post, .navbar {
     -webkit-transform: translateZ(0);
     transform: translateZ(0);
     -webkit-backface-visibility: hidden;
@@ -2433,6 +2487,12 @@ html[data-theme=dark] .friends-card .friends-avatar {
   /* 优化滚动流畅度 */
   body, .wrapper, .glass-wrapper {
     -webkit-overflow-scrolling: touch;
+  }
+  
+  /* 确保背景元素不受影响 */
+  body::before {
+    transform: none !important;
+    -webkit-transform: none !important;
   }
   
   /* 移除悬停动画，改用 active 状态 */
