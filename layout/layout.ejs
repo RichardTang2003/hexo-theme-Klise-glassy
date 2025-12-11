@@ -29,6 +29,8 @@
   <%-partial('partials/head')%>
 </head>
 <body class="notransition">
+  <!-- 固定背景层 - 解决 iOS Safari 不支持 background-attachment: fixed 的问题 -->
+  <div id="fixed-bg"></div>
   <!-- <script defer>
     // 延迟移除 notransition 类，确保初始主题设置完成
     setTimeout(() => document.body.classList.remove("notransition"), 75);
