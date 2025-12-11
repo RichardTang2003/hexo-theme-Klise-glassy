@@ -21,7 +21,7 @@
 
 - 😢把scss全编译为css了，只有一个main.css文件，包含了所有的渲染样式....不过不用担心我注释了🤓 <-- g0dmao
 - 将原主题的深色模式进一步适配，并修改了一些元素的显示风格。<-- g0dmao
-- 改用（我的）随机图片 API 作为背景图，文档见 https://api.illlights.com/zh/v1/img
+- 改用（我的）随机图片 API 作为背景图，文档见 [https://api.illlights.com/zh/v1/img](https://api.illlights.com/guide/img.html)
 - 大量使用毛玻璃背景版，提高文字显示效果。
 - 增加页面动画。
 - 增加 friends 页面和 moments 页面。
