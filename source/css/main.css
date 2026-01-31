@@ -21,7 +21,7 @@ html[data-theme=dark] body {
   pointer-events: none;
   background: 
     linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)), 
-    url('https://api.illlights.com/v1/img?err_only=true&minsize=720&minbrightness=0.5');
+    url('https://api.illlights.com/v1/img?minsize=720&minbrightness=0.6');
     /* var(--background-img-light); */
   background-position: center center;
   background-repeat: no-repeat;
@@ -31,7 +31,7 @@ html[data-theme=dark] body {
 html[data-theme=dark] #fixed-bg {
   background: 
     linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
-    url('https://api.illlights.com/v1/img?err_only=true&minsize=720&maxbrightness=0.5');
+    url('https://api.illlights.com/v1/img?minsize=720&maxbrightness=0.6');
     /* var(--background-img-dark); */
   background-position: center center;
   background-repeat: no-repeat;
@@ -48,7 +48,7 @@ html[data-theme=dark] #fixed-bg {
     height: calc(100% + 200px);
     background: 
       linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)), 
-      url('https://api.illlights.com/v1/img?err_only=true&minsize=720&minbrightness=0.5');
+      url('https://api.illlights.com/v1/img?view=vertical&minsize=720&minbrightness=0.6');
       /* 移动端亮色背景 */
     background-position: center center;
     background-repeat: no-repeat;
@@ -58,7 +58,7 @@ html[data-theme=dark] #fixed-bg {
   html[data-theme=dark] #fixed-bg {
     background: 
       linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
-      url('https://api.illlights.com/v1/img?err_only=true&minsize=720&maxbrightness=0.5');
+      url('https://api.illlights.com/v1/img?view=vertical&minsize=720&maxbrightness=0.6');
       /* 移动端暗色背景 */
     background-position: center center;
     background-repeat: no-repeat;
