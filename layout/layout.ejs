@@ -5,6 +5,8 @@
   <script>
     (function() {
       try {
+        document.documentElement.classList.add('js');
+
         var saved = localStorage.getItem('theme');
         var mode = (saved === 'light' || saved === 'dark' || saved === 'auto') ? saved : 'auto';
 
@@ -38,8 +40,10 @@
   <%-partial('partials/foot')%>
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-      // 当 DOM 内容加载完成后，为 body 添加 'loaded' 类
-      document.body.classList.add('loaded');
+      // 当 DOM 内容加载完成后，延后 1-2 帧再加 'loaded'，确保过渡能触发
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => document.body.classList.add('loaded'));
+      });
     });
   </script>
 </body>

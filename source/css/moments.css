@@ -4,8 +4,19 @@
   margin: 0 auto;
   padding: 0 1rem;
   font-family: var(--font-sans);
-  /* 降低模糊半径，提升 Windows/Edge 稳定性与性能 */
   --glass-blur: 8px;
+  --glass-bg-current: var(--glass-bg-strong);
+}
+
+#moments-page .glass-wrapper::before {
+  display: none;
+}
+
+#moments-page .glass-wrapper {
+  isolation: isolate;
+  background: var(--glass-bg-current, var(--glass-bg));
+  backdrop-filter: blur(var(--glass-blur, 8px));
+  -webkit-backdrop-filter: blur(var(--glass-blur, 8px));
 }
 
 /* 页面级别的图片样式重置 */
@@ -60,33 +71,11 @@ html[data-theme=dark] #mastodon-timeline::before {
   max-width: 500px; /* 限制最大宽度，使卡片更窄 */
   margin-bottom: 2.5rem;
   padding: 1.5rem;
-  border-radius: 16px;
-  transition: all 0.3s ease;
+  border-radius: var(--glass-radius);
   cursor: pointer;
   width: 100%;
   margin-left: 0;
-
-  /* 动态页面卡片更“实”，即使 blur 被降级也不会黑透 */
-  --glass-bg-current: var(--glass-bg-strong);
-
-  /* 加载动画 */
-  opacity: 0;
-  animation: fadeIn 0.45s ease forwards;
-  animation-fill-mode: forwards;
 }
-
-/* Windows/Edge 上 `backdrop-filter` 在伪元素里更容易被降级，动态卡片改为直接在元素上做毛玻璃 */
-.mastodon-post.glass-wrapper::before {
-  display: none;
-}
-
-.mastodon-post.glass-wrapper {
-  background: var(--glass-bg-current, var(--glass-bg));
-  backdrop-filter: blur(var(--glass-blur, 8px));
-  -webkit-backdrop-filter: blur(var(--glass-blur, 8px));
-}
-
-
 
 /* --- 时间线连接点 --- */
 .mastodon-post::after {
@@ -382,24 +371,10 @@ html[data-theme=dark] .media-attachments img {
   font-style: italic;
 }
 
-/* --- 动画效果 --- */
-@keyframes fadeIn { 
-  to { opacity: 1; } 
-}
-
 @keyframes spin { 
   0% { transform: rotate(0deg); } 
   100% { transform: rotate(360deg); } 
 }
-
-.mastodon-post:nth-child(1) { animation-delay: 0.1s; }
-.mastodon-post:nth-child(2) { animation-delay: 0.2s; }
-.mastodon-post:nth-child(3) { animation-delay: 0.3s; }
-.mastodon-post:nth-child(4) { animation-delay: 0.4s; }
-.mastodon-post:nth-child(5) { animation-delay: 0.5s; }
-.mastodon-post:nth-child(6) { animation-delay: 0.6s; }
-.mastodon-post:nth-child(7) { animation-delay: 0.7s; }
-.mastodon-post:nth-child(8) { animation-delay: 0.8s; }
 
 /* --- 响应式设计 (手机端) --- */
 @media (max-width: 768px) {
