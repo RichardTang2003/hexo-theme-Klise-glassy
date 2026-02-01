@@ -10,48 +10,62 @@
   const toTopBtn = document.getElementById("toTopBtn");
 
   // --- 主题管理 ---
+  const THEME_STORAGE_KEY = "theme";
 
-  /**
-   * 将指定的主题应用到文档上。
-   * @param {string} theme - 要应用的主题 ("dark" 或 "light").
-   */
-  const applyTheme = (theme) => {
-    if (theme === "dark") {
-      // 设置 data-theme 属性，以便 CSS 可以根据它来应用样式
-      html.setAttribute("data-theme", "dark");
-    } else {
-      // 移除该属性以应用默认的浅色主题
-      html.removeAttribute("data-theme");
-    }
+  const normalizeMode = (value) => {
+    if (value === "light" || value === "dark" || value === "auto") return value;
+    return "auto";
+  };
+
+  const getSystemTheme = () => {
+    if (!window.matchMedia) return "light";
+    return window.matchMedia('(prefers-color-scheme: dark)').matches ? "dark" : "light";
+  };
+
+  const setEffectiveTheme = (theme) => {
+    if (theme === "dark") html.setAttribute("data-theme", "dark");
+    else html.removeAttribute("data-theme");
+  };
+
+  const updateThemeButton = (mode) => {
+    if (!lamp) return;
+    const map = { light: "亮色", dark: "暗色", auto: "自动" };
+    const label = map[mode] || mode;
+    lamp.setAttribute("aria-label", `主题：${label}（点击切换）`);
+    lamp.setAttribute("title", `主题：${label}`);
   };
 
   /**
-   * 在 "dark" 和 "light" 主题之间切换，并保存用户的选择。
+   * 将指定的主题模式应用到文档上。
+   * @param {string} mode - "light" | "dark" | "auto"
+   */
+  const applyThemeMode = (mode) => {
+    const normalized = normalizeMode(mode);
+    html.setAttribute("data-theme-mode", normalized);
+
+    const effectiveTheme = (normalized === "auto") ? getSystemTheme() : normalized;
+    setEffectiveTheme(effectiveTheme);
+    updateThemeButton(normalized);
+  };
+
+  /**
+   * 在 "auto" -> "light" -> "dark" 之间切换，并保存用户的选择。
    */
   const toggleTheme = () => {
-    // 通过 body 的 data-theme 属性判断当前主题
-    const currentTheme = html.getAttribute("data-theme") ? "dark" : "light";
-    const newTheme = currentTheme === "dark" ? "light" : "dark";
-    
-    // 将用户的明确选择保存到 localStorage
-    localStorage.setItem("theme", newTheme);
-    applyTheme(newTheme);
+    const currentMode = normalizeMode(html.getAttribute("data-theme-mode") || localStorage.getItem(THEME_STORAGE_KEY));
+    const nextMode = (currentMode === "auto") ? "light" : (currentMode === "light") ? "dark" : "auto";
+
+    localStorage.setItem(THEME_STORAGE_KEY, nextMode);
+    applyThemeMode(nextMode);
   };
 
   /**
    * 在页面加载时初始化主题。
-   * 优先使用 localStorage 中的设置，其次检查系统偏好。
+   * 优先使用 localStorage 中的模式设置，其次为 auto。
    */
   const initTheme = () => {
-    // 首先检查用户是否已有保存的偏好
-    const savedTheme = localStorage.getItem("theme");
-    if (savedTheme) {
-      applyTheme(savedTheme);
-    } else {
-      // 如果没有保存的偏好，则检查操作系统的设置
-      const systemPrefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-      applyTheme(systemPrefersDark ? "dark" : "light");
-    }
+    const savedMode = normalizeMode(localStorage.getItem(THEME_STORAGE_KEY));
+    applyThemeMode(savedMode);
   };
 
   // --- 其他功能 ---
@@ -79,13 +93,10 @@
     }
 
     // 监听操作系统主题偏好的变化
-    // 只有当用户没有手动设置过主题时，此监听器才会生效
     if (window.matchMedia) {
       window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
-        // 如果 localStorage 中有保存的主题，说明用户已做出选择，我们不应覆盖它
-        if (!localStorage.getItem("theme")) {
-          applyTheme(e.matches ? "dark" : "light");
-        }
+        const mode = normalizeMode(localStorage.getItem(THEME_STORAGE_KEY));
+        if (mode === "auto") applyThemeMode("auto");
       });
     }
 
@@ -131,5 +142,3 @@
   setupEventListeners();
 
 })();
-
-

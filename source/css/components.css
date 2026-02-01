@@ -1,0 +1,349 @@
+/* ---- Glass surface ---- */
+.glass-wrapper {
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+  border-radius: var(--glass-radius);
+  padding: 20px;
+  position: relative;
+  z-index: 0;
+}
+
+.glass-wrapper::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: var(--glass-bg-current, var(--glass-bg));
+  backdrop-filter: blur(var(--glass-blur, 10px));
+  -webkit-backdrop-filter: blur(var(--glass-blur, 10px));
+  z-index: -1;
+}
+
+/* ---- Author (home) ---- */
+.author {
+  margin-top: 6.3rem;
+  margin-bottom: 7.2rem;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+@media screen and (max-width: 768px) {
+  .author {
+    margin-bottom: 3em;
+  }
+}
+
+.author .author-avatar-wrapper {
+  border: 1px solid #b6b6b6;
+  width: 70px;
+  height: 70px;
+  border-radius: 100%;
+  user-select: none;
+  background-color: #0d122b;
+  overflow: hidden;
+}
+
+.author .author-avatar {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.author .author-name {
+  font-size: 1.7em;
+  margin-bottom: 2px;
+  color: var(--heading);
+}
+
+.author .author-bio {
+  margin: 0 auto;
+  opacity: 0.9;
+  max-width: 393px;
+  line-height: 1.688;
+  color: var(--text-muted);
+}
+
+/* ---- Recent posts list ---- */
+.posts-item-note {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 5px;
+  color: var(--heading);
+}
+
+.post-item {
+  display: flex;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  gap: 8px;
+}
+
+.post-item:not(:first-child) {
+  border-top: none;
+}
+
+.post-item .post-item-date {
+  min-width: 96px;
+  color: var(--heading);
+  font-weight: 700;
+  padding-right: 10px;
+}
+
+@media screen and (max-width: 768px) {
+  .post-item .post-item-date {
+    font-size: 16px;
+  }
+}
+
+.post-item .post-item-title {
+  flex: 1;
+  margin: 0;
+  border: 0;
+  padding: 0;
+  font-size: 16px;
+  font-weight: normal;
+  letter-spacing: 0.1px;
+}
+
+.post-item .post-item-heading {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.post-item .post-item-heading .post-item-title {
+  flex: 0 1 auto;
+}
+
+.post-item .post-item-title a,
+.post-item a.post-item-title {
+  color: #434648;
+}
+
+html[data-theme="dark"] .post-item .post-item-title a,
+html[data-theme="dark"] .post-item a.post-item-title {
+  color: var(--text);
+}
+
+.post-item .post-item-categories {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 13px;
+}
+
+.post-item .post-item-categories li {
+  margin: 0;
+}
+
+.post-item .post-item-categories a {
+  color: var(--text-muted);
+  text-decoration: none;
+}
+
+/* ---- Post prev/next ---- */
+.post-nav {
+  display: flex;
+  position: relative;
+  margin-top: 5em;
+  line-height: 1.4;
+}
+
+.post-nav .post-nav-item {
+  border-bottom: 0;
+  font-weight: 700;
+  padding: 10px 0;
+  width: 50%;
+  text-decoration: none;
+}
+
+.post-nav .post-nav-item .post-title {
+  color: var(--heading);
+}
+
+.post-nav .post-nav-item .nav-arrow {
+  font-weight: 400;
+  font-size: 14px;
+  color: var(--text-muted);
+  margin-bottom: 3px;
+}
+
+.post-nav .post-nav-item:nth-child(odd) {
+  padding-left: 0;
+  padding-right: 20px;
+}
+
+.post-nav .post-nav-item:nth-child(even) {
+  text-align: right;
+  padding-right: 0;
+  padding-left: 20px;
+}
+
+@media screen and (max-width: 768px) {
+  .post-nav {
+    font-size: 14px;
+  }
+
+  .post-nav .post-nav-item {
+    width: 100%;
+  }
+
+  .post-nav .post-nav-item:nth-child(even) {
+    border-left: 0;
+    padding-left: 0;
+  }
+}
+
+/* ---- Pagination ---- */
+.pagination {
+  margin-top: 20px;
+  text-align: center;
+  min-height: 50px;
+}
+
+.pagination a,
+.pagination span {
+  margin: 5px;
+  padding: 8px 12px;
+  border: none;
+  background-color: transparent;
+  font-size: 16px;
+  font-weight: normal;
+}
+
+span.page-number.current {
+  color: #3498db;
+}
+
+/* ---- Responsive embeds ---- */
+.embed-responsive {
+  height: 0;
+  max-width: 100%;
+  overflow: hidden;
+  position: relative;
+  padding-bottom: 56.25%;
+  margin-top: 20px;
+}
+
+.embed-responsive iframe,
+.embed-responsive object,
+.embed-responsive embed {
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+}
+
+/* ---- Post floating buttons & TOC overlay ---- */
+#toTopBtn,
+#toggleButton,
+#closeButton {
+  width: 44px;
+  height: 44px;
+  background-color: rgba(255, 255, 255, 0);
+  border-radius: 10px;
+  border: none;
+  padding: 0;
+  position: fixed;
+  right: 10vh;
+  z-index: 997;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#toTopBtn {
+  bottom: 20vh;
+  display: none; /* JS controls visibility */
+}
+
+#toggleButton {
+  bottom: 10vh;
+  display: flex;
+}
+
+#closeButton {
+  bottom: 10vh;
+  display: flex;
+}
+
+#toTopBtn i,
+#toggleButton i,
+#closeButton i {
+  font-size: 40px;
+}
+
+html[data-theme="dark"] #toTopBtn i,
+html[data-theme="dark"] #toggleButton i,
+html[data-theme="dark"] #closeButton i {
+  color: var(--text);
+}
+
+@media (max-width: 768px) {
+  #toggleButton,
+  #toggleButton i,
+  #toTopBtn,
+  #toTopBtn i,
+  #closeButton,
+  #closeButton i {
+    display: none;
+  }
+}
+
+.overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 998;
+  padding: 20px;
+  justify-content: center;
+  align-items: center;
+}
+
+.overlay .content {
+  width: min(900px, 100%);
+  max-height: 80vh;
+  overflow: auto;
+  padding: 20px;
+  border-radius: var(--glass-radius);
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+}
+
+/* TOC typography */
+.overlay .content .toc {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  text-align: left;
+}
+
+.overlay .content .toc li {
+  margin: 6px 0;
+}
+
+.overlay .content .toc a {
+  color: inherit;
+}
+
+span.toc-text {
+  color: var(--heading);
+}
+
+/* ---- Tips plugin ---- */
+.hexo-tips-layout {
+  background-color: var(--tips-light-bg);
+}
+
+html[data-theme="dark"] .hexo-tips-layout {
+  background-color: var(--tips-dark-bg);
+}

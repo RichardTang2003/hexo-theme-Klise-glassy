@@ -1,0 +1,80 @@
+/* ---- Mobile readability tweaks ---- */
+@media screen and (max-width: 768px) {
+  body {
+    font-size: 16px;
+    line-height: 1.75;
+  }
+
+  .glass-wrapper {
+    padding: 14px;
+    border-radius: 12px;
+  }
+
+  .friends-wrapper {
+    margin-top: 50px;
+    padding: 0 20px;
+  }
+
+  .friends-container {
+    gap: 10px;
+    padding: 0 8px;
+    margin-top: 0;
+  }
+
+  .post img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin: 10px 0;
+  }
+
+  .post pre {
+    font-size: 12px;
+    padding: 12px 15px;
+    border-radius: 8px;
+  }
+
+  .post code {
+    font-size: 12px;
+    padding: 2px 6px;
+    border-radius: 4px;
+  }
+
+  .post > table th,
+  .post > table td,
+  .post .page-content > table th,
+  .post .page-content > table td {
+    padding: 8px 6px;
+  }
+
+  .post ul,
+  .post ol {
+    padding-left: 1.25em;
+    margin: 10px 0;
+  }
+
+  .post li {
+    margin-bottom: 5px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  body {
+    font-size: 15px;
+    line-height: 1.7;
+  }
+
+  .glass-wrapper {
+    padding: 12px;
+    border-radius: 10px;
+  }
+
+  .categories-grid {
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 8px;
+  }
+
+  .friends-container {
+    grid-template-columns: 1fr;
+  }
+}

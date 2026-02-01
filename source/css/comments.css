@@ -1,0 +1,78 @@
+/* ---- Waline ---- */
+.dis {
+  margin-top: 2rem;
+}
+
+.waline-container {
+  margin-top: 2rem;
+  color: inherit;
+}
+
+.waline-container .wl-editor {
+  background: inherit !important;
+  border: inherit !important;
+  border-radius: 12px !important;
+  padding: 16px !important;
+  color: inherit !important;
+}
+
+.waline-container .wl-editor textarea {
+  color: inherit !important;
+}
+
+.waline-container .wl-card {
+  background: rgba(255, 255, 255, 0.2) !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  border-radius: 10px !important;
+  margin-bottom: 1rem !important;
+  padding: 16px !important;
+  backdrop-filter: blur(6px) !important;
+  -webkit-backdrop-filter: blur(6px) !important;
+  color: inherit !important;
+}
+
+.waline-container .wl-nick,
+.waline-container .wl-time,
+.waline-container .wl-content,
+.waline-container .wl-admin-actions,
+.waline-container .wl-comment-actions,
+.waline-container .wl-meta,
+.waline-container .wl-user,
+.waline-container .wl-info,
+.waline-container .wl-count {
+  color: inherit !important;
+}
+
+.waline-container a {
+  color: inherit !important;
+  opacity: 0.85;
+}
+
+.waline-container .wl-btn {
+  background: rgba(255, 255, 255, 0.3) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  border-radius: 8px !important;
+  backdrop-filter: blur(6px) !important;
+  -webkit-backdrop-filter: blur(6px) !important;
+  color: inherit !important;
+}
+
+html[data-theme="dark"] .waline-container .wl-card {
+  background: rgba(40, 40, 40, 0.3) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+html[data-theme="dark"] .waline-container .wl-btn {
+  background: rgba(40, 40, 40, 0.4) !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+}
+
+html[data-theme="dark"] .waline-container,
+html[data-theme="dark"] .waline-container *:not(.wl-emoji) {
+  color: #c7bebe !important;
+}
+
+.waline-container .wl-editor textarea::placeholder {
+  color: inherit !important;
+  opacity: 0.6;
+}

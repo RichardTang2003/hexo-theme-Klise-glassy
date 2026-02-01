@@ -1,0 +1,288 @@
+/* ---- 404 ---- */
+.not-found {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  height: 75vh;
+}
+
+.not-found .title {
+  font-size: 5em;
+  font-weight: 700;
+  line-height: 1.1;
+  color: var(--heading);
+  text-shadow: 1px 0 0 var(--link);
+}
+
+.not-found .phrase {
+  color: #434648;
+}
+
+html[data-theme="dark"] .not-found .phrase {
+  color: var(--text);
+  opacity: 0.9;
+}
+
+.not-found .solution {
+  color: var(--link);
+  letter-spacing: 0.5px;
+}
+
+/* ---- Tags page ---- */
+.tags-container {
+  display: inline-block;
+  border-radius: 12px;
+  padding-left: 20px;
+  color: #333;
+}
+
+html[data-theme="dark"] .tags-container {
+  color: var(--text);
+}
+
+.tags-container a {
+  padding: 8px 12px;
+  margin-right: 10px;
+  margin-bottom: 8px;
+  display: inline-block;
+  border-radius: 12px;
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  white-space: nowrap;
+  word-break: keep-all;
+  overflow-wrap: normal;
+}
+
+/* ---- Categories page ---- */
+.categories-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 1rem;
+}
+
+.category-item {
+  margin-bottom: 1rem;
+  border-radius: 16px;
+}
+
+.category-item a {
+  display: block;
+  padding: 1rem;
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+  text-align: center;
+  border-radius: 16px;
+}
+
+html[data-theme="dark"] .category-item a {
+  color: var(--text);
+}
+
+/* ---- Archives page ---- */
+.archive-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.monthly-archives {
+  margin-top: 2rem;
+}
+
+.archive-month-group {
+  margin-bottom: 2.5rem;
+}
+
+.archive-month-title {
+  font-size: 1.5rem;
+  color: #444;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+html[data-theme="dark"] .archive-month-title {
+  color: var(--heading);
+}
+
+.post-count {
+  font-size: 1rem;
+  color: #999;
+  font-weight: normal;
+}
+
+.archive-post-list {
+  list-style: none;
+  padding-left: 0;
+}
+
+.archive-post-item {
+  margin-bottom: 1.2rem;
+  padding: 0.8rem 1rem;
+  border-radius: 16px;
+}
+
+.post-date {
+  display: inline-block;
+  width: 3rem;
+  color: #666;
+  font-size: 0.9rem;
+}
+
+html[data-theme="dark"] .post-date {
+  color: var(--text-muted);
+}
+
+.post-title {
+  color: #333;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+html[data-theme="dark"] .post-title {
+  color: var(--heading);
+}
+
+.post-tags .tag {
+  flex: auto;
+  font-size: 0.8rem;
+  color: #888;
+  margin-right: 0.5rem;
+  text-decoration: none;
+  white-space: nowrap;
+  word-break: keep-all;
+  overflow-wrap: normal;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+html[data-theme="dark"] .post-tags .tag {
+  color: var(--text-muted);
+}
+
+/* ---- Search (optional) ---- */
+.search-article {
+  position: relative;
+  margin-bottom: 50px;
+}
+
+.search-article label[for="search-input"] {
+  position: relative;
+  top: 10px;
+  left: 11px;
+}
+
+.search-article input[type="search"] {
+  top: 0;
+  left: 0;
+  border: 0;
+  width: 100%;
+  height: 40px;
+  outline: none;
+  position: absolute;
+  border-radius: 5px;
+  padding: 10px 10px 10px 35px;
+  color: #434648;
+  appearance: none;
+  font-size: 16px;
+  background-color: rgba(128, 128, 128, 0.1);
+  border: 1px solid rgba(128, 128, 128, 0.1);
+}
+
+.search-article input[type="search"]::-webkit-input-placeholder {
+  color: #808080;
+}
+
+.search-article input[type="search"]::-webkit-search-decoration,
+.search-article input[type="search"]::-webkit-search-results-decoration {
+  display: none;
+}
+
+#search-results {
+  text-align: center;
+}
+
+#search-results li {
+  text-align: left;
+}
+
+/* ---- Friends page ---- */
+.friends-wrapper {
+  max-width: 890px;
+  margin: 0 auto;
+  padding: 0 30px;
+}
+
+.friends-subtitle {
+  text-align: center;
+  color: var(--text-muted);
+}
+
+.friends-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+  padding-top: 1rem;
+}
+
+.friends-card {
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  border-radius: 16px;
+  text-decoration: none;
+  color: inherit;
+  overflow: hidden;
+}
+
+.friends-avatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 1rem;
+  margin-left: 1rem;
+  flex-shrink: 0;
+  border: 2px solid rgba(255, 255, 255, 0.6);
+}
+
+html[data-theme="dark"] .friends-avatar {
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.friends-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.friends-name {
+  margin: 0 0 0.3rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #1a1a1a;
+}
+
+html[data-theme="dark"] .friends-name {
+  color: var(--heading);
+}
+
+.friends-descr {
+  margin: 0;
+  font-size: 0.85rem;
+  color: #4d4d4d;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.4;
+}
+
+html[data-theme="dark"] .friends-descr {
+  color: var(--text);
+  opacity: 0.85;
+}

@@ -1,0 +1,252 @@
+/* ---- Fixed background layer ---- */
+/* 图片路径，请将图片存放至主题文件夹下的source/img */
+#fixed-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  pointer-events: none;
+  background: linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)),
+    url("https://api.illlights.com/v1/img?minsize=720&minbrightness=0.5");
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+html[data-theme="dark"] #fixed-bg {
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url("https://api.illlights.com/v1/img?minsize=720&maxbrightness=0.6");
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+@media screen and (max-width: 768px) {
+  #fixed-bg {
+    top: -100px;
+    bottom: -100px;
+    height: calc(100% + 200px);
+    background: linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)),
+      url("https://api.illlights.com/v1/img?view=vertical&minsize=720&minbrightness=0.5");
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+
+  html[data-theme="dark"] #fixed-bg {
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+      url("https://api.illlights.com/v1/img?view=vertical&minsize=720&maxbrightness=0.6");
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+}
+
+/* ---- Scrollbar ---- */
+::-webkit-scrollbar {
+  width: 0.5rem;
+  height: 0.5rem;
+}
+
+::-webkit-scrollbar-corner {
+  background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #d3d3d4;
+}
+
+::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+/* ---- Base reset ---- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  width: 100%;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  overflow-x: hidden;
+  color: var(--text);
+  font: 400 18px/1.85 var(--font-sans);
+  -webkit-text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+  font-feature-settings: "kern" 1;
+  font-kerning: normal;
+}
+
+body.notransition {
+  transition: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+hr,
+dl,
+dd,
+ol,
+ul,
+figure {
+  margin: 0 0 10px;
+  padding: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--heading);
+  font-weight: 700;
+}
+
+strong,
+b {
+  font-weight: 700;
+  color: var(--text-strong);
+}
+
+hr {
+  border: 0;
+  border-top: 1px solid var(--border);
+}
+
+kbd {
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  color: var(--text-strong);
+  display: inline-block;
+  font-size: 14px;
+  line-height: 1.4;
+  font-family: var(--font-mono);
+  margin: 0 0.1em;
+  font-weight: 700;
+  padding: 0.01em 0.4em;
+  text-shadow: 0 1px 0 #fff;
+}
+
+html[data-theme="dark"] kbd {
+  text-shadow: 0 1px 0 #131418;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  vertical-align: middle;
+  -webkit-user-drag: none;
+}
+
+figure {
+  position: relative;
+}
+
+figure > img {
+  display: block;
+}
+
+figcaption {
+  font-size: 13px;
+  text-align: center;
+  color: var(--text-muted);
+}
+
+svg {
+  vertical-align: middle;
+}
+
+/* ---- Links ---- */
+a {
+  color: inherit;
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+a:focus,
+a:focus-visible {
+  outline: none;
+}
+
+button {
+  font: inherit;
+  -webkit-tap-highlight-color: transparent;
+}
+
+button:focus,
+button:focus-visible {
+  outline: none;
+}
+
+/* ---- Link hover underline ---- */
+@media (hover: hover) and (pointer: fine) {
+  .post .page-content a:not(.headerlink),
+  .post-item a,
+  .archive-container a,
+  .tags-container a,
+  .footer a,
+  .not-found a {
+    position: relative;
+  }
+
+  .post .page-content a:not(.headerlink)::after,
+  .post-item a::after,
+  .archive-container a::after,
+  .tags-container a::after,
+  .footer a::after,
+  .not-found a::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: -2px;
+    width: 0;
+    height: 2px;
+    background: var(--accent);
+    transition: width 200ms ease, left 200ms ease;
+    pointer-events: none;
+    opacity: 0.9;
+  }
+
+  .post .page-content a:not(.headerlink):hover::after,
+  .post-item a:hover::after,
+  .archive-container a:hover::after,
+  .tags-container a:hover::after,
+  .footer a:hover::after,
+  .not-found a:hover::after {
+    left: 0;
+    width: 100%;
+  }
+}
+
+::-moz-selection {
+  background: var(--selection-bg);
+  color: var(--selection-text);
+}
+
+::selection {
+  background: var(--selection-bg);
+  color: var(--selection-text);
+}
+
+mark {
+  background: var(--selection-bg);
+  color: var(--selection-text);
+}

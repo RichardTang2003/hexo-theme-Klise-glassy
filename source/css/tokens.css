@@ -1,0 +1,54 @@
+:root {
+  --font-sans: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei UI",
+    "Microsoft YaHei", "Segoe UI", Roboto, "Noto Sans CJK SC", "Noto Sans SC", "Source Han Sans SC",
+    "WenQuanYi Micro Hei", Arial, sans-serif;
+  --font-mono: "Roboto Mono", Menlo, Consolas, "PingFang SC", "Microsoft JhengHei", "Microsoft YaHei", monospace,
+    Helvetica Neue For Number;
+
+  --text: #0d122b;
+  --text-strong: #0d122b;
+  --text-muted: #6b7886;
+  --heading: #0d122b;
+
+  --link: #f66;
+  --accent: #ff5277;
+
+  --border: #ececec;
+
+  --selection-bg: #fffba0;
+  --selection-text: #0d122b;
+
+  --glass-bg: linear-gradient(rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0.45));
+  --glass-bg-strong: linear-gradient(rgba(255, 255, 255, 0.86), rgba(255, 255, 255, 0.78));
+  --glass-border: rgba(255, 255, 255, 0.25);
+  --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
+  --glass-radius: 16px;
+  --glass-blur: 10px;
+
+  --code-inline-bg: #ffffff6b;
+  --code-block-bg: #ffffff6b;
+  --code-gutter-text: #999;
+
+  --tips-light-bg: rgba(255, 255, 255, 0.4);
+  --tips-dark-bg: rgba(40, 40, 40, 0.4);
+}
+
+html[data-theme="dark"] {
+  --text: #c7bebe;
+  --text-strong: #eaeaea;
+  --text-muted: #767f87;
+  --heading: #eaeaea;
+
+  --link: #ff5277;
+
+  --border: #1b1d25;
+
+  --glass-bg: linear-gradient(rgba(40, 40, 40, 0.6), rgba(40, 40, 40, 0.5));
+  --glass-bg-strong: linear-gradient(rgba(40, 40, 40, 0.9), rgba(40, 40, 40, 0.84));
+  --glass-border: rgba(255, 255, 255, 0.18);
+  --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+
+  --code-inline-bg: #0000006b;
+  --code-block-bg: #0000006b;
+  --code-gutter-text: #666;
+}

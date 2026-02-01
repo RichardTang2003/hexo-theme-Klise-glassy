@@ -3,7 +3,9 @@
   max-width: 750px; /* 减小页面最大宽度 */
   margin: 0 auto;
   padding: 0 1rem;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-family: var(--font-sans);
+  /* 降低模糊半径，提升 Windows/Edge 稳定性与性能 */
+  --glass-blur: 8px;
 }
 
 /* 页面级别的图片样式重置 */
@@ -25,7 +27,13 @@
 /* --- 时间线核心结构 --- */
 #mastodon-timeline {
   position: relative;
-  padding: 2rem 0 2rem 10px; /* 取消左侧padding */
+  /* 对齐：时间线中心、卡片起始位置、连接点尺寸 */
+  --timeline-x: 20px;
+  --timeline-card-x: 52px;
+  --timeline-dot-size: 14px;
+  --timeline-dot-border: 4px;
+  --timeline-dot-half: calc((var(--timeline-dot-size) / 2) + var(--timeline-dot-border));
+  padding: 2rem 0 2rem var(--timeline-card-x);
 }
 
 /* 左侧时间线 */
@@ -33,7 +41,8 @@
   content: '';
   position: absolute;
   top: 0;
-  left: 0; /* 取消左侧空间后，时间线贴齐容器左侧 */
+  left: var(--timeline-x);
+  transform: translateX(-50%);
   width: 3px;
   height: 100%;
   background: currentColor; /* 使用当前文字颜色 */
@@ -48,20 +57,33 @@ html[data-theme=dark] #mastodon-timeline::before {
 /* --- 单条动态卡片样式 --- */
 .mastodon-post {
   position: relative;
-  width: calc(100% - 40px); /* 减小卡片宽度，让连接点更靠近 */
   max-width: 500px; /* 限制最大宽度，使卡片更窄 */
   margin-bottom: 2.5rem;
   padding: 1.5rem;
   border-radius: 16px;
   transition: all 0.3s ease;
   cursor: pointer;
-  margin-left: 40px;
+  width: 100%;
+  margin-left: 0;
+
+  /* 动态页面卡片更“实”，即使 blur 被降级也不会黑透 */
+  --glass-bg-current: var(--glass-bg-strong);
 
   /* 加载动画 */
   opacity: 0;
-  transform: translateY(20px) translateX(30px);
-  animation: slideInRight 0.6s ease forwards;
+  animation: fadeIn 0.45s ease forwards;
   animation-fill-mode: forwards;
+}
+
+/* Windows/Edge 上 `backdrop-filter` 在伪元素里更容易被降级，动态卡片改为直接在元素上做毛玻璃 */
+.mastodon-post.glass-wrapper::before {
+  display: none;
+}
+
+.mastodon-post.glass-wrapper {
+  background: var(--glass-bg-current, var(--glass-bg));
+  backdrop-filter: blur(var(--glass-blur, 8px));
+  -webkit-backdrop-filter: blur(var(--glass-blur, 8px));
 }
 
 
@@ -71,12 +93,12 @@ html[data-theme=dark] #mastodon-timeline::before {
   content: '';
   position: absolute;
   top: 1.5rem; /* 调整到卡片内容位置 */
-  left: -60px; /* 调整连接点位置，更靠近卡片 */
-  width: 14px;
-  height: 14px;
+  left: calc(var(--timeline-x) - var(--timeline-card-x) - var(--timeline-dot-half));
+  width: var(--timeline-dot-size);
+  height: var(--timeline-dot-size);
   border-radius: 50%;
   background: #fff;
-  border: 4px solid currentColor; /* 使用当前文字颜色 */
+  border: var(--timeline-dot-border) solid currentColor; /* 使用当前文字颜色 */
   opacity: 0.8;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   z-index: 2;
@@ -108,20 +130,10 @@ html[data-theme=dark] .post-content {
 .post-content a { 
   color: #2196F3; 
   text-decoration: none;
-  border-bottom: 1px solid transparent;
-  transition: border-bottom 0.3s ease;
-}
-
-.post-content a:hover { 
-  border-bottom: 1px solid #2196F3;
 }
 
 html[data-theme=dark] .post-content a {
   color: #64b5f6;
-}
-
-html[data-theme=dark] .post-content a:hover {
-  border-bottom-color: #64b5f6;
 }
 
 /* 图片附件样式 */
@@ -259,7 +271,6 @@ html[data-theme=dark] .post-content a:hover {
   width: 100%;
   border-radius: 8px;
   background-color: transparent;
-  transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
   cursor: pointer;
   display: block;
   border: none; /* 完全移除边框 */
@@ -274,7 +285,7 @@ html[data-theme=dark] .post-content a:hover {
 .media-attachments .media-link:visited {
   border: none !important;
   outline: none !important;
-  box-shadow: none; /* 移除默认阴影，只保留hover效果 */
+  box-shadow: none;
 }
 
 .media-attachments img:focus {
@@ -282,27 +293,10 @@ html[data-theme=dark] .post-content a:hover {
   border: none !important;
 }
 
-/* 重新定义hover效果，确保只有我们想要的阴影 */
-.media-attachments img:hover {
-  border: none !important;
-  outline: none !important;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2) !important;
-}
-
-html[data-theme=dark] .media-attachments img:hover {
-  border: none !important;
-  outline: none !important;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4) !important;
-}
-
 /* 深色模式下的图片样式 */
 html[data-theme=dark] .media-attachments img {
   background-color: transparent;
   border: none; /* 深色模式下也完全移除边框 */
-}
-
-html[data-theme=dark] .media-attachments img:hover {
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
 }
 
 /* 移动端优化 */
@@ -378,13 +372,7 @@ html[data-theme=dark] .media-attachments img:hover {
   border-radius: 12px; 
   background: linear-gradient(135deg, #2196F3, #64b5f6);
   color: white; 
-  transition: all 0.3s ease;
   box-shadow: 0 4px 15px rgba(33, 150, 243, 0.3);
-}
-
-#load-more-btn:hover { 
-  transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(33, 150, 243, 0.4); 
 }
 
 .no-more-posts { 
@@ -395,11 +383,8 @@ html[data-theme=dark] .media-attachments img:hover {
 }
 
 /* --- 动画效果 --- */
-@keyframes slideInRight { 
-  to { 
-    opacity: 1; 
-    transform: translateY(0) translateX(0); 
-  } 
+@keyframes fadeIn { 
+  to { opacity: 1; } 
 }
 
 @keyframes spin { 
@@ -441,9 +426,6 @@ html[data-theme=dark] .media-attachments img:hover {
     display: none;
   }
   .mastodon-post::after { 
-    display: none;
-  }
-  .mastodon-post::before {
     display: none;
   }
   
@@ -513,11 +495,6 @@ html[data-theme=dark] .media-attachments img:hover {
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  transition: background-color 0.2s ease;
-}
-
-.modal-close:hover {
-  background-color: rgba(255, 255, 255, 0.2);
 }
 
 .modal-nav {
@@ -535,12 +512,7 @@ html[data-theme=dark] .media-attachments img:hover {
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background-color 0.2s ease;
   user-select: none;
-}
-
-.modal-nav:hover {
-  background: rgba(0, 0, 0, 0.8);
 }
 
 .modal-prev {
@@ -603,10 +575,6 @@ html[data-theme=dark] .media-attachments img:hover {
   border: none; /* 移除链接边框 */
   outline: none; /* 移除焦点轮廓 */
   background: transparent; /* 确保背景透明 */
-}
-
-.media-attachments .media-link:hover {
-  transform: none; /* 移除链接本身的变换，让图片处理 */
 }
 
 .media-attachments .media-link:focus {
