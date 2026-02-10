@@ -152,5 +152,4 @@ layout: moments
 
 这部分是用静态 JS 实现的，每次访问者访问这个网页时会向公共 API 发送请求，实时获取动态内容。
 
-在配置文件里填写自己的用户名和 Mastodon 实例地址就行，只会显示对公众开放的内容。
-
+目前支持从 **Mastodon / Misskey / Bangumi** 拉取动态；在主题配置的 `moments` 里分别设置 `enable` 和 `api/url` 即可，只会显示对公众开放的内容。
